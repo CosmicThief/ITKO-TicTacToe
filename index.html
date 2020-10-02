@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KRYDS OG BOLLE</title>
+
+    <!-- Pers CSS -->
+    <style>
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 1px black solid;
+            float: left;
+            font-size: 5.5em;
+            text-align: center;
+        }
+
+        .board {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 306px;
+            height: 306px;
+            border: 1px black solid;
+        }
+    </style>
+
+    <!-- Her begynder mit JavaScript -->
+    <script>
+        //Her finder vi ud af hvis tur det er ved at: definere en variabel og sætte variablens værdi til indholdet fra HTML elementet med ID'et "playerTurn".
+        var current = document.getElementById("playerTurn");
+
+        //Her starter funktionen for at klikke på et felt.
+        function clicked(objThis) {
+            //Spillerne må ikke tage de felter modstanderen har taget. Derfor laver vi en variabel (cellEmpty) hvis værdi er indholdet af det felt vi har klikket på.
+            var cellEmpty = document.getElementById(objThis.id).innerHTML;
+
+            //Den første if-sætning spørger om variablen cellEmpty er tom. Hvis den er går den videre i funktionen. Hvis den ikke er går den til den tilhørende else-sætning på linje 57.
+            if(cellEmpty == ""){
+                //Her begynder spillet: if-sætningen spørger hvis tur det er ved at spørge om variablen current (linje 33) er li med strengen X. Hvis den er det, udfører den tre handlinger:
+                if(current == "X"){
+                    //1. HTML'en der siger hvis tur det er skifter til at det er O's tur.
+                    document.getElementById("playerTurn").innerHTML="O";
+                    //2. Et X placeres i det felt man klikkede på.
+                    document.getElementById(objThis.id).innerHTML="X";
+                    //3. Variablen der definerer hvis tur det er, skifter til O.
+                    current = 'O';
+            //Else-sætningen her gør det modsatte: skifter hvis tur HTML'en siger det er, indsætter O i feltet og opdaterer variablen.
+            } else {
+                document.getElementById("playerTurn").innerHTML="X";
+                document.getElementById(objThis.id).innerHTML="O";
+                current = "X";
+            }
+        //Hvis at et felt allerede er taget (se linje 41) så skipper funktionen linje 43-55 og giver en alert der siger dette.    
+        }else{
+            alert("Tænk dig om. Feltet er allerede brugt.");
+        }
+    }
+
+        //Denne funktion genstarter spillet ved at trykke på knappen i HTML'en.
+        function resetGame(){
+            window.location.reload();
+        }
+    </script>
+</head>
+
+<!-- Pers og min HTML -->
+<body>
+    <h1>Kryds og bolle!</h1>
+    <p>Spillertur:</p><p id="playerTurn">O</p>
+    <div class="board">
+        <div id="c1" class="cell" onclick="clicked(this);"></div>
+        <div id="c2" class="cell" onclick="clicked(this);"></div>
+        <div id="c3" class="cell" onclick="clicked(this);"></div>
+        <div id="c4" class="cell" onclick="clicked(this);"></div>
+        <div id="c5" class="cell" onclick="clicked(this);"></div>
+        <div id="c6" class="cell" onclick="clicked(this);"></div>
+        <div id="c7" class="cell" onclick="clicked(this);"></div>
+        <div id="c8" class="cell" onclick="clicked(this);"></div>
+        <div id="c9" class="cell" onclick="clicked(this);"></div>
+    </div>
+    <button onclick="resetGame()">Genstart spillet</button>
+</body>
+
+</html>
